@@ -3,11 +3,15 @@ package es.portizsan.twitrector.loader;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import com.googlecode.objectify.ObjectifyService;
+
+import es.portizsan.twitrector.bean.Twitrector;
+
 public class ObjectifyLoader implements ServletContextListener {
 
 	static {
 
-		// ObjectifyService.register(UserAccess.class);
+		ObjectifyService.register(Twitrector.class);
 
 	}
 

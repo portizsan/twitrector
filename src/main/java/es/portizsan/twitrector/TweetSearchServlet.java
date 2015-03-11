@@ -16,10 +16,10 @@
 
 package es.portizsan.twitrector;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,18 +31,20 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import es.portizsan.twitrector.bean.Twitrector;
+import es.portizsan.twitrector.service.TwitrectorService;
 
 public class TweetSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = -1243223937144208948L;
+	protected static final Logger logger = Logger
+			.getLogger(TweetSearchServlet.class.getName());
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					System.in));
-			String search = br.readLine();
+			Twitrector tr = new TwitrectorService().getFirstTwitrector();
+			String search = tr.getQuery();
 			Twitter twitter = new TwitterFactory().getInstance();
 			Query query = new Query(search);
 			QueryResult result;
@@ -54,15 +56,8 @@ public class TweetSearchServlet extends HttpServlet {
 							+ " - " + tweet.getText());
 				}
 			} while ((query = result.nextQuery()) != null);
-			System.exit(0);
 		} catch (TwitterException te) {
-			te.printStackTrace();
-			System.out.println("Failed to search tweets: " + te.getMessage());
-			System.exit(-1);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("IOException: " + e.getMessage());
-			System.exit(-1);
+			logger.log(Level.WARNING, "Failed to search tweets: ", te);
 		}
 	}
 }

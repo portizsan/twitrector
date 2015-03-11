@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+
+	<cron>
+		<url>/tasks/tweetsSearch</url>
+		<description>cron for search</description>
+		<schedule>every 1 hours</schedule>
+		<timezone>Europe/Madrid</timezone>
+	</cron>
+
+</cronentries>

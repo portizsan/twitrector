@@ -16,6 +16,27 @@
 		<url-pattern>/tasks/tweetsSearch</url-pattern>
 	</servlet-mapping>
 
+
+	<!-- Rest Servlet -->
+	<servlet>
+		<servlet-name>jersey</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>es.portizsan.twitrector.ws
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>com.sun.jersey.config.feature.DisableWADL</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>jersey</servlet-name>
+		<url-pattern>/s/*</url-pattern>
+	</servlet-mapping>
+
 	<!-- Objectify Filter -->
 	<filter>
 		<filter-name>ObjectifyFilter</filter-name>
