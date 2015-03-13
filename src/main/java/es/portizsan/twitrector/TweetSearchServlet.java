@@ -48,6 +48,11 @@ public class TweetSearchServlet extends HttpServlet {
 				String search = tr.getQuery();
 				Twitter twitter = new TwitterFactory().getInstance();
 				Query query = new Query(search);
+				long before = System.currentTimeMillis() - (1000 * 60 * 60);
+				logger.info("from :" + before);
+				query.setSinceId(before);
+				query.setLocale("es");
+				query.setCount(100);
 				QueryResult result;
 				do {
 					result = twitter.search(query);
