@@ -24,7 +24,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import twitter4j.GeoLocation;
 import twitter4j.Query;
+import twitter4j.Query.Unit;
 import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -53,6 +55,13 @@ public class TweetSearchServlet extends HttpServlet {
 				query.setSinceId(before);
 				query.setLocale("es");
 				query.setCount(100);
+				if (tr.getLocation() != null) {
+					GeoLocation location = new GeoLocation(tr.getLocation()
+							.getLatitude(), tr.getLocation().getLongitude());
+					Unit unit = Unit.valueOf(tr.getLocation().getUnit().name());
+					query.setGeoCode(location, tr.getLocation().getRadius(),
+							unit);
+				}
 				QueryResult result;
 				do {
 					result = twitter.search(query);

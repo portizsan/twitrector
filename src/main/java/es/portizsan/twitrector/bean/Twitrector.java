@@ -3,6 +3,8 @@ package es.portizsan.twitrector.bean;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
+import es.portizsan.twitrector.bean.embed.Location;
+
 @Entity
 public class Twitrector {
 
@@ -12,6 +14,8 @@ public class Twitrector {
 	private String query;
 
 	private String response;
+
+	private Location location;
 
 	/**
 	 * @return the id
@@ -56,6 +60,20 @@ public class Twitrector {
 	 */
 	public void setResponse(String response) {
 		this.response = response;
+	}
+
+	/**
+	 * @return the location
+	 */
+	public Location getLocation() {
+		return location;
+	}
+
+	/**
+	 * @param location the location to set
+	 */
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 }
