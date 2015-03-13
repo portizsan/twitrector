@@ -16,7 +16,6 @@
 
 package es.portizsan.twitrector;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,22 +39,28 @@ public class TweetSearchServlet extends HttpServlet {
 			.getLogger(TweetSearchServlet.class.getName());
 
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
+		logger.info("TweetSearchServlet started");
 		try {
 			Twitrector tr = new TwitrectorService().getFirstTwitrector();
-			String search = tr.getQuery();
-			Twitter twitter = new TwitterFactory().getInstance();
-			Query query = new Query(search);
-			QueryResult result;
-			do {
-				result = twitter.search(query);
-				List<Status> tweets = result.getTweets();
-				for (Status tweet : tweets) {
-					System.out.println("@" + tweet.getUser().getScreenName()
-							+ " - " + tweet.getText());
-				}
-			} while ((query = result.nextQuery()) != null);
+			if (tr != null) {
+				logger.info("Searching for :" + tr.getQuery());
+				String search = tr.getQuery();
+				Twitter twitter = new TwitterFactory().getInstance();
+				Query query = new Query(search);
+				QueryResult result;
+				do {
+					result = twitter.search(query);
+					List<Status> tweets = result.getTweets();
+					logger.info("Found :" + tweets.size());
+					for (Status tweet : tweets) {
+						logger.info("@" + tweet.getUser().getScreenName()
+								+ " - " + tweet.getText());
+					}
+				} while ((query = result.nextQuery()) != null);
+			} else {
+				logger.log(Level.WARNING, "No Twitrector found!!!!!");
+			}
 		} catch (TwitterException te) {
 			logger.log(Level.WARNING, "Failed to search tweets: ", te);
 		}
