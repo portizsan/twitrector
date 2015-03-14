@@ -2,7 +2,7 @@
 <cronentries>
 
 	<cron>
-		<url>/tasks/tweetsSearch</url>
+		<url>/tasks/tweetSearch</url>
 		<description>cron for search</description>
 		<schedule>every 1 hours</schedule>
 		<timezone>Europe/Madrid</timezone>

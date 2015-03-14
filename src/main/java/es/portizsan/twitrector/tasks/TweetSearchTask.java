@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.portizsan.twitrector;
+package es.portizsan.twitrector.tasks;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -32,13 +32,18 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions;
+
 import es.portizsan.twitrector.bean.Twitrector;
 import es.portizsan.twitrector.service.TwitrectorService;
 
-public class TweetSearchServlet extends HttpServlet {
+public class TweetSearchTask extends HttpServlet {
 	private static final long serialVersionUID = -1243223937144208948L;
 	protected static final Logger logger = Logger
-			.getLogger(TweetSearchServlet.class.getName());
+			.getLogger(TweetSearchTask.class.getName());
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -66,8 +71,20 @@ public class TweetSearchServlet extends HttpServlet {
 				do {
 					result = twitter.search(query);
 					List<Status> tweets = result.getTweets();
-					logger.info("Found :" + tweets.size());
 					for (Status tweet : tweets) {
+						Queue queue = QueueFactory.getQueue("default");
+						queue.add(TaskOptions.Builder
+								.withUrl("/tasks/tweetReply")
+								.param("statusId",
+										String.valueOf(tweet.getId()))
+								.param("message",
+										"@"
+												+ tweet.getUser()
+														.getScreenName()
+												+ " "
+												+ String.valueOf(tr
+														.getResponse())));
+
 						logger.info("@" + tweet.getUser().getScreenName()
 								+ " - " + tweet.getText());
 					}

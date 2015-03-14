@@ -8,12 +8,22 @@
 
 	<servlet>
 		<servlet-name>TweetSearch</servlet-name>
-		<servlet-class>es.portizsan.twitrector.TweetSearchServlet</servlet-class>
+		<servlet-class>es.portizsan.twitrector.tasks.TweetSearchTask</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>TweetSearch</servlet-name>
-		<url-pattern>/tasks/tweetsSearch</url-pattern>
+		<url-pattern>/tasks/tweetSearch</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>TweetReply</servlet-name>
+		<servlet-class>es.portizsan.twitrector.tasks.TweetReplyTask</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>TweetReply</servlet-name>
+		<url-pattern>/tasks/tweetReply</url-pattern>
 	</servlet-mapping>
 
 
