@@ -15,8 +15,8 @@
 		<servlet-name>TweetSearch</servlet-name>
 		<url-pattern>/tasks/tweetSearch</url-pattern>
 	</servlet-mapping>
-	
-		<servlet>
+
+	<servlet>
 		<servlet-name>TweetReply</servlet-name>
 		<servlet-class>es.portizsan.twitrector.tasks.TweetReplyTask</servlet-class>
 	</servlet>
@@ -59,4 +59,16 @@
 	<listener>
 		<listener-class>es.portizsan.twitrector.loader.ObjectifyLoader</listener-class>
 	</listener>
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>admin</web-resource-name>
+			<url-pattern>/tasks/*</url-pattern>
+			<url-pattern>/s/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
 </web-app>

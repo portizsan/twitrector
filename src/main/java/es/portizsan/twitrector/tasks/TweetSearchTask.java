@@ -49,8 +49,12 @@ public class TweetSearchTask extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
 		logger.info("TweetSearchServlet started");
 		try {
-			Twitrector tr = new TwitrectorService().getFirstTwitrector();
-			if (tr != null) {
+			List<Twitrector> trl = new TwitrectorService().getTwitrectors();
+			if (trl == null || trl.isEmpty()) {
+				logger.log(Level.WARNING, "No Twitrectors found!!!!!");
+				return;
+			}
+			for (Twitrector tr : trl) {
 				logger.info("Searching for :" + tr.getQuery());
 				String search = tr.getQuery();
 				Twitter twitter = new TwitterFactory().getInstance();
@@ -89,8 +93,6 @@ public class TweetSearchTask extends HttpServlet {
 								+ " - " + tweet.getText());
 					}
 				} while ((query = result.nextQuery()) != null);
-			} else {
-				logger.log(Level.WARNING, "No Twitrector found!!!!!");
 			}
 		} catch (TwitterException te) {
 			logger.log(Level.WARNING, "Failed to search tweets: ", te);
