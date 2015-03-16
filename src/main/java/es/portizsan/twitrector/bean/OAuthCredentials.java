@@ -12,10 +12,10 @@ public class OAuthCredentials {
 	private String user;
 	@Index
 	private boolean active;
-	private String consumerSecret = "4mu6e2FRI9JS7MlekSaZQy74OSucJkaFZfWhGfm4qWejVkkIXo";
-	private String accessToken = "3090987641-4mJEcbmHFH24ud66lEeBvzks8L80Drl9rTXyZkT";
-	private String accessTokenSecret = "Vypl2tuFy9unDNiriGAYiJrwXfZminXgeJriMuzvcOtPw";
-	private String consumerKey = "x4J4i4UFRqdrFuYNx3L4xkmu1";
+	private String consumerSecret;
+	private String accessToken;
+	private String accessTokenSecret;
+	private String consumerKey;
 
 	/**
 	 * @return the id
