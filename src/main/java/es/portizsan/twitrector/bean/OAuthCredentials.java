@@ -2,12 +2,15 @@ package es.portizsan.twitrector.bean;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 @Entity
 public class OAuthCredentials {
 	@Id
 	private Long id;
+	@Index
 	private String user;
+	@Index
 	private boolean active;
 	private String consumerSecret = "4mu6e2FRI9JS7MlekSaZQy74OSucJkaFZfWhGfm4qWejVkkIXo";
 	private String accessToken = "3090987641-4mJEcbmHFH24ud66lEeBvzks8L80Drl9rTXyZkT";
