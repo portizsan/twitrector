@@ -4,7 +4,7 @@
 	<cron>
 		<url>/tasks/tweetSearch</url>
 		<description>cron for search</description>
-		<schedule>every 1 hours</schedule>
+		<schedule>every 10 minutes</schedule>
 		<timezone>Europe/Madrid</timezone>
 	</cron>
 

@@ -47,7 +47,7 @@ public class TweetSearchTask extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) {
-		logger.info("TweetSearchServlet started");
+		long before = System.currentTimeMillis() - (1000 * 60 * 15);
 		try {
 			List<Twitrector> trl = new TwitrectorService().getTwitrectors();
 			if (trl == null || trl.isEmpty()) {
@@ -59,9 +59,6 @@ public class TweetSearchTask extends HttpServlet {
 				String search = tr.getQuery();
 				Twitter twitter = new TwitterFactory().getInstance();
 				Query query = new Query(search);
-				long before = System.currentTimeMillis() - (1000 * 60 * 60);
-				logger.info("from :" + before);
-				query.setSinceId(before);
 				query.setLocale("es");
 				query.setCount(100);
 				if (tr.getLocation() != null) {
@@ -76,6 +73,8 @@ public class TweetSearchTask extends HttpServlet {
 					result = twitter.search(query);
 					List<Status> tweets = result.getTweets();
 					for (Status tweet : tweets) {
+						if (tweet.getCreatedAt().getTime() < before)
+							continue;
 						Queue queue = QueueFactory.getQueue("default");
 						queue.add(TaskOptions.Builder
 								.withUrl("/tasks/tweetReply")
