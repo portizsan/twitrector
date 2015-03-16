@@ -48,7 +48,7 @@ public class TwitrectorWS {
 	@POST
 	@Path("/twitrector")
 	@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
-	public Response crreateTwitrectors(@Context HttpServletRequest request,
+	public Response createTwitrectors(@Context HttpServletRequest request,
 			@FormParam(value = "json") String json) {
 		if (json.equals(null))
 			return Response.status(Status.BAD_REQUEST).build();

@@ -5,6 +5,7 @@ import javax.servlet.ServletContextListener;
 
 import com.googlecode.objectify.ObjectifyService;
 
+import es.portizsan.twitrector.bean.OAuthCredentials;
 import es.portizsan.twitrector.bean.Twitrector;
 
 public class ObjectifyLoader implements ServletContextListener {
@@ -12,6 +13,7 @@ public class ObjectifyLoader implements ServletContextListener {
 	static {
 
 		ObjectifyService.register(Twitrector.class);
+		ObjectifyService.register(OAuthCredentials.class);
 
 	}
 

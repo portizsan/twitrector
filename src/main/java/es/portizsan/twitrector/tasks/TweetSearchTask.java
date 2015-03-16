@@ -31,13 +31,13 @@ import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
 
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 
 import es.portizsan.twitrector.bean.Twitrector;
+import es.portizsan.twitrector.service.TwitterService;
 import es.portizsan.twitrector.service.TwitrectorService;
 
 public class TweetSearchTask extends HttpServlet {
@@ -57,7 +57,7 @@ public class TweetSearchTask extends HttpServlet {
 			for (Twitrector tr : trl) {
 				logger.info("Searching for :" + tr.getQuery());
 				String search = tr.getQuery();
-				Twitter twitter = new TwitterFactory().getInstance();
+				Twitter twitter = new TwitterService().getTwitterInstance();
 				Query query = new Query(search);
 				query.setLocale("es");
 				query.setCount(100);

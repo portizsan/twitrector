@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
+import es.portizsan.twitrector.service.TwitterService;
 
 public class TweetReplyTask extends HttpServlet {
 	private static final long serialVersionUID = -1243223937144208948L;
@@ -57,7 +57,7 @@ public class TweetReplyTask extends HttpServlet {
 		}
 		try {
 			logger.info("repling: " + message + " , " + inReplyToStatusId);
-			Twitter twitter = new TwitterFactory().getInstance();
+			Twitter twitter = new TwitterService().getTwitterInstance();
 			StatusUpdate su = new StatusUpdate(message);
 			su.setInReplyToStatusId(inReplyToStatusId);
 			twitter.updateStatus(su);
