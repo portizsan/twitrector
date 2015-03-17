@@ -35,7 +35,7 @@ public class TwitrectorWS {
 	}
 
 	@GET
-	@Path("/twitrector/{id}")
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
 	public Response getTwitrector(@Context HttpServletRequest request,
 			@PathParam(value = "id") String id) {
@@ -46,7 +46,6 @@ public class TwitrectorWS {
 	}
 
 	@POST
-	@Path("/twitrector")
 	@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
 	public Response createTwitrectors(@Context HttpServletRequest request,
 			@FormParam(value = "json") String json) {

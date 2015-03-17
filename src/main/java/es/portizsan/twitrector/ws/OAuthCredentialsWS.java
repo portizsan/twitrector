@@ -25,7 +25,7 @@ public class OAuthCredentialsWS {
 			.getLogger(OAuthCredentialsWS.class.getName());
 
 	@GET
-	@Path("/oAuthCredential/active")
+	@Path("/active")
 	@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
 	public Response getOAuthCredential(@Context HttpServletRequest request) {
 		return Response
@@ -35,7 +35,6 @@ public class OAuthCredentialsWS {
 	}
 
 	@POST
-	@Path("/oAuthCredential")
 	@Produces(MediaType.APPLICATION_JSON + "; charset=UTF-8")
 	public Response createOAuthCredential(@Context HttpServletRequest request,
 			@FormParam(value = "json") String json) {
